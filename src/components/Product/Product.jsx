@@ -1,14 +1,22 @@
 import StarIcon from '@mui/icons-material/Star'
+import { useItemValue } from '../../context/ItemProvider'
 
 import './Product.css'
 export const Product = ({ products }) => {
-  const { rating } = products
+  const { id, title, image, price, rating } = products
+  const [state, dispatch] = useItemValue()
+  const addToCart = () => {
+    dispatch({
+      type: 'ADD_TO_CART',
+      item: { id: id, title: title, image: image, price: price, rating: rating }
+    })
+  }
   return (
     <div className='product'>
       <div className='product_info'>
-        <p>{products.title}</p>
+        <p>{title}</p>
         <p className='product_price'>
-          $<strong>{products.price}</strong>
+          $<strong>{price}</strong>
         </p>
         <div className='product_rating'>
           {[...new Array(rating)].fill().map((_, i) => {
@@ -16,8 +24,8 @@ export const Product = ({ products }) => {
           })}
         </div>
       </div>
-      <img src={products.image} alt='product-img' />
-      <button>Add</button>
+      <img src={image} alt='product-img' />
+      <button onClick={addToCart}>Add</button>
     </div>
   )
 }

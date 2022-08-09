@@ -1,9 +1,13 @@
+import { Link } from 'react-router-dom'
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket'
 import StorefrontIcon from '@mui/icons-material/Storefront'
 import SearchIcon from '@mui/icons-material/Search'
 import './Header.css'
+import { useItemValue } from '../../context/ItemProvider'
 
 export const Header = () => {
+  const [{ cart }, dispatch] = useItemValue()
+
   return (
     <div className='header'>
       <Link to='/' style={{ textDecoration: 'none' }}>
@@ -17,10 +21,12 @@ export const Header = () => {
         <SearchIcon className='header_searchIcon' />
       </div>
       <div className='header_nav'>
-        <div className='nav_item'>
-          <span className='nav_itemLine1'>Hello Guest</span>
-          <span className='nav_itemLine2'>Sign In</span>
-        </div>
+        <Link to='/login' style={{ textDecoration: 'none' }}>
+          <div className='nav_item'>
+            <span className='nav_itemLine1'>Hello Guest</span>
+            <span className='nav_itemLine2'>Sign In</span>
+          </div>
+        </Link>
         <div className='nav_item'>
           <span className='nav_itemLine1'>Your</span>
           <span className='nav_itemLine2'>Shop</span>
@@ -28,7 +34,7 @@ export const Header = () => {
         <Link to='/checkout' style={{ textDecoration: 'none' }}>
           <div className='nav_itemBasket'>
             <ShoppingBasketIcon fontSize='large' />
-            <span className='nav_itemLine2 nav_basketCount'>0</span>
+            <span className='nav_itemLine2 nav_basketCount'>{cart.length}</span>
           </div>
         </Link>
       </div>
