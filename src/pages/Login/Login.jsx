@@ -11,7 +11,7 @@ export const Login = () => {
 
   const signIn = e => {
     e.preventDefault()
-
+    // TODO new to set up firebase
     //     auth
     //       .signInWithEmailAndPassword(email, password)
     //       .then(auth => {
